@@ -51,17 +51,17 @@ function copyToClipboard(event) {
     // Get the parent list item
     const passwordItem = target.parentElement;
 
-    // Get the password from the list item's HTML content
-    const password = passwordItem.innerHTML;
+    // Get the password span element within the list item
+    const passwordSpan = passwordItem.querySelector('.password-text');
 
-    // Remove the "Copy to clipboard" text and span element from the password
-    const cleanedPassword = password.replace("<br><span class=\"copy\">Click to Copy</span>", "");
+    // Get the password from the text content of the password span element
+    const password = passwordSpan.textContent;
 
     // Create a temporary input element
     const input = document.createElement('input');
 
-    // Set the value of the input element to the cleaned password
-    input.value = cleanedPassword;
+    // Set the value of the input element to the password
+    input.value = password;
 
     // Add the input element to the page
     document.body.appendChild(input);
@@ -83,6 +83,7 @@ function copyToClipboard(event) {
 
     // Remove the "copied" class after a certain amount of time
     setTimeout(() => {
+      target.textContent = "Copy to clipboard";
       target.classList.remove("copied");
     }, 1000);
   }
